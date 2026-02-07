@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Valentine Week for Vrushti — GIF Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff0f6;
+    --accent:#ff6fa3;
+    --muted:#ffdfe9;
+    --card:#ffffff;
+    --text:#4b2b3a;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:"Comfortaa",system-ui,Segoe UI,Arial; background:linear-gradient(180deg,var(--bg),#fff); color:var(--text)}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .card{width:100%;max-width:980px;background:var(--card);border-radius:22px;box-shadow:0 14px 40px rgba(107,40,80,0.12);padding:28px;position:relative;overflow:hidden}
+  header{display:flex;align-items:center;gap:18px}
+  .logo{width:78px;height:78px;border-radius:20px;background:linear-gradient(135deg,var(--accent),#ffb3d1);display:flex;align-items:center;justify-content:center;color:white;font-family:"Pacifico";font-size:26px;box-shadow:0 8px 22px rgba(255,111,163,0.18)}
+  h1{margin:0;font-size:30px}
+  .subtitle{color:#7a4a63;margin-top:6px;font-size:14px}
+  .main{display:flex;gap:24px;margin-top:18px;align-items:stretch}
+  .left{flex:1;display:flex;flex-direction:column;gap:14px}
+  .wishBox{background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.95));border-radius:16px;padding:20px;min-height:300px;position:relative;overflow:hidden}
+  .wishText{font-size:18px;line-height:1.5;color:#5a2f42}
+  .dayLabel{font-weight:800;color:var(--accent);font-size:13px;margin-bottom:8px}
+  .actions{display:flex;gap:12px;margin-top:14px;position:relative}
+  .btn{padding:10px 16px;border-radius:12px;border:0;background:var(--accent);color:white;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(255,111,163,0.18)}
+  .btn.secondary{background:transparent;color:var(--accent);border:2px solid rgba(255,111,163,0.12)}
+  .noBtn{background:#ffeef6;color:#b33b6a;border:2px dashed rgba(179,59,106,0.12);position:relative}
+  .meta{font-size:13px;color:#8b5a6f;margin-top:10px}
+  .right{width:360px;display:flex;flex-direction:column;gap:12px;align-items:center}
+  .heartStage{width:320px;height:320px;border-radius:20px;background:linear-gradient(135deg,#fff0f6,#fff);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+  .floatingHearts{position:absolute;inset:0;pointer-events:none}
+  .smallNote{background:linear-gradient(90deg,#fff,#fff8fb);padding:10px;border-radius:12px;font-size:13px;color:#7a4a63;text-align:center}
+  .gifRow{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
+  .gifItem{width:84px;height:84px;border-radius:12px;object-fit:cover;box-shadow:0 10px 26px rgba(0,0,0,0.08);transform-origin:center;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+  .gifItem:hover{transform:translateY(-6px) rotate(-6deg) scale(1.06)}
+  @keyframes floatUp {0%{transform:translateY(20px) scale(0.9);opacity:0}50%{opacity:1}100%{transform:translateY(-140px) scale(1);opacity:0}}
+  .heart{position:absolute;width:36px;height:36px;background:var(--accent);transform:rotate(-45deg);border-radius:8px 8px 0 0;opacity:0.95}
+  .heart:before,.heart:after{content:"";position:absolute;background:var(--accent);border-radius:50%}
+  .heart:before{width:36px;height:36px;top:-18px;left:0}
+  .heart:after{width:36px;height:36px;left:18px;top:0}
+  .typewriter{font-family:"Pacifico";font-size:22px;color:var(--accent);white-space:pre-wrap}
+  .confettiPiece{position:absolute;width:8px;height:14px;opacity:0.95;border-radius:2px}
+  .flower{position:absolute;width:28px;height:28px;pointer-events:none;transform-origin:center;will-change:transform,opacity}
+  .bigFlower{width:48px;height:48px}
+  .noBtn.hidden{display:none}
+  .noBtn.disabled{opacity:0.45;cursor:not-allowed;pointer-events:none}
+  .modalBackdrop{position:fixed;inset:0;background:rgba(10,6,10,0.28);display:flex;align-items:center;justify-content:center;z-index:9998}
+  .modal{width:92%;max-width:720px;background:linear-gradient(180deg,#fff,#fff8fb);border-radius:18px;padding:18px;box-shadow:0 30px 80px rgba(107,40,80,0.18);position:relative;overflow:hidden}
+  .ribbon{position:absolute;left:-10%;top:-6%;width:120%;height:40%;background:linear-gradient(90deg,rgba(255,111,163,0.12),rgba(255,200,220,0.06));transform:skewX(-18deg);border-radius:40px;z-index:1}
+  .modalContent{position:relative;z-index:2;display:flex;gap:14px;align-items:center}
+  .modalLeft{flex:1}
+  .modalRight{width:220px;display:flex;flex-direction:column;gap:8px;align-items:center}
+  .closeBtn{position:absolute;right:12px;top:12px;background:transparent;border:0;font-size:18px;cursor:pointer;color:#7a4a63}
+  .cuteTitle{font-family:"Pacifico";font-size:22px;color:var(--accent);margin:0 0 6px 0}
+  .decor{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  @media (max-width:920px){.main{flex-direction:column}.right{width:100%}.heartStage{width:100%;height:260px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <header>
+      <div class="logo">❤</div>
+      <div>
+        <h1 id="title">Valentine Week</h1>
+        <div class="subtitle" id="subtitle">A little surprise for <strong id="gfNameDisplay">Vrushti</strong></div>
+      </div>
+    </header>
+
+    <div class="main">
+      <div class="left">
+        <div class="wishBox" id="wishBox">
+          <div class="dayLabel" id="dayLabel">Day</div>
+          <div class="wishText" id="wishText">Loading something extra-sweet…</div>
+          <div class="actions">
+            <button class="btn" id="yesBtn">Yes</button>
+            <button class="btn noBtn hidden" id="noBtn">No</button>
+            <button class="btn secondary" id="surpriseBtn">Surprise</button>
+          </div>
+          <div class="meta" id="metaText">Tap anywhere for a big flower and tiny wishes</div>
+        </div>
+
+        <div class="smallNote" id="smallNote">Open this page each day for a new, extra-sweet note and animation just for you.</div>
+      </div>
+
+      <div class="right">
+        <div class="heartStage" id="heartStage">
+          <div class="floatingHearts" id="floatingHearts"></div>
+          <div id="centerVisual" style="text-align:center">
+            <div id="centerMessage" class="typewriter" aria-hidden="true"></div>
+            <div class="gifRow" id="gifRow" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="smallNote" id="extraNote">Made with tiny hearts, big hugs, and lots of giggles 💕</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalRoot" style="display:none"></div>
+
+<script>
+/* Personalization */
+const gfName = 'Vrushti';
+document.getElementById('gfNameDisplay').textContent = gfName;
+
+/* Curated free-to-view animated GIFs (cat couple / cute cat GIFs).
+   These are public GIF links that work well in the page.
+   If you prefer different GIFs, replace these URLs with your favorites. */
+const catGifs = [
+  // classic "typing cat" — playful and well-known
+  'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
+  // cuddly pair of cats (cute snuggle)
+  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+  // playful kittens bouncing
+  'https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif'
+];
+
+/* Valentine wishes */
+const wishes = {
+  '2-7': {
+    day:'Rose Day',
+    text:`My dearest ${gfName}, today I give you a rose for every time your smile brightened my day. Each petal is a little thank-you for the warmth you bring, and every scent is a promise that I will always cherish you. 🌹`,
+    style:{accent:'#ff6fa3',bg:'#fff0f6'},
+    animation:'floatHearts'
+  },
+  '2-8': {
+    day:'Propose Day',
+    text:`Sweet ${gfName}, I have a tiny question wrapped in a huge heart: will you let me be the one who makes you laugh on rainy days, hold your hand on long walks, and build a thousand cozy memories with you? 💍`,
+    style:{accent:'#ff8fb3',bg:'#fff6f8'},
+    animation:'typewriter'
+  },
+  '2-9': {
+    day:'Chocolate Day',
+    text:`Lovely ${gfName}, you are sweeter than the richest chocolate and softer than the creamiest truffle. Today I wish to share every sweet moment with you, from silly jokes to quiet cuddles, and a lifetime of little treats. 🍫`,
+    style:{accent:'#d46bff',bg:'#f8f0ff'},
+    animation:'confetti'
+  },
+  '2-10': {
+    day:'Teddy Day',
+    text:`Cuddly ${gfName}, imagine a tiny teddy that carries all my hugs and whispers silly stories into your ear. I send that teddy to you today with a promise: whenever you need comfort, I will be your warm, safe place. 🧸`,
+    style:{accent:'#ff9aa2',bg:'#fff3f5'},
+    animation:'softZoom'
+  },
+  '2-11': {
+    day:'Promise Day',
+    text:`Dear ${gfName}, I promise to listen when you need to talk, to cheer when you shine, and to stand steady when storms arrive. This promise is small words with a giant heart behind them — forever and always. 🤝`,
+    style:{accent:'#ff6f9a',bg:'#fff0f6'},
+    animation:'ribbonSweep'
+  },
+  '2-12': {
+    day:'Hug Day',
+    text:`Sweetheart ${gfName}, here is a hug that travels through the screen: warm, gentle, and endless. Wrap it around you whenever you miss me and know that I am holding you close in every quiet moment. 🤗`,
+    style:{accent:'#ff7fb0',bg:'#fff2f7'},
+    animation:'floatingHeartsSlow'
+  },
+  '2-13': {
+    day:'Kiss Day',
+    text:`My darling ${gfName}, a tiny kiss for your forehead, a playful peck for your cheek, and a promise of a thousand more. Let this kiss be a little spark that lights up your sweetest dreams tonight. 😘`,
+    style:{accent:'#ff4d8a',bg:'#ffeef6'},
+    animation:'kissSparkle'
+  },
+  '2-14': {
+    day:"Valentine's Day",
+    text:`Happy Valentine's Day, ${gfName}! Today and every day I celebrate the way you make my heart skip, the way your laughter feels like sunshine, and the gentle magic of being with you. Will you be my forever and my favorite hello? ❤️`,
+    style:{accent:'#ff2d6f',bg:'#fff0f2'},
+    animation:'fullBloom'
+  }
+};
+
+/* Helpers */
+function mdKey(d){ return (d.getMonth()+1) + '-' + d.getDate(); }
+const dayLabel = document.getElementById('dayLabel');
+const wishText = document.getElementById('wishText');
+const title = document.getElementById('title');
+const centerMessage = document.getElementById('centerMessage');
+const gifRow = document.getElementById('gifRow');
+const heartStage = document.getElementById('heartStage');
+const floatingHearts = document.getElementById('floatingHearts');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const surpriseBtn = document.getElementById('surpriseBtn');
+const card = document.getElementById('card');
+const metaText = document.getElementById('metaText');
+const modalRoot = document.getElementById('modalRoot');
+
+const today = new Date();
+const key = mdKey(today);
+const dayData = wishes[key] || null;
+
+if(dayData){
+  dayLabel.textContent = dayData.day;
+  wishText.textContent = dayData.text;
+  title.textContent = `${dayData.day} for ${gfName}`;
+  document.documentElement.style.setProperty('--accent', dayData.style.accent);
+  document.documentElement.style.setProperty('--bg', dayData.style.bg);
+  metaText.textContent = 'Tap anywhere for a big flower and tiny wishes';
+  runAnimation(dayData.animation);
+  if(key === '2-14'){ showNoButtonForFeb14(); } else { hideNoButton(); }
+} else {
+  dayLabel.textContent = 'Sweet Day';
+  wishText.innerHTML = `Hello ${gfName}, every day with you is a little adventure filled with giggles, warm hugs, and tiny surprises. 💖`;
+  runAnimation('floatHearts');
+  hideNoButton();
+}
+
+/* Show/hide NO button */
+function hideNoButton(){
+  noBtn.classList.add('hidden');
+  noBtn.classList.remove('disabled');
+  noBtn.style.left = '';
+  noBtn.style.top = '';
+}
+function showNoButtonForFeb14(){
+  noBtn.classList.remove('hidden');
+  noBtn.classList.remove('disabled');
+  noBtn.textContent = 'NO';
+  noBtn.style.position = 'absolute';
+  enableMovingNo();
+}
+
+/* Buttons */
+yesBtn.addEventListener('click', ()=> showPopup(`Yay! ${gfName} is loved to the moon and back 💕`));
+surpriseBtn.addEventListener('click', ()=> openSurpriseModal());
+
+function showPopup(msg){
+  const p = document.createElement('div');
+  p.textContent = msg;
+  p.style.position='fixed';
+  p.style.left='50%';
+  p.style.top='14%';
+  p.style.transform='translateX(-50%)';
+  p.style.background='white';
+  p.style.padding='12px 18px';
+  p.style.borderRadius='12px';
+  p.style.boxShadow='0 8px 30px rgba(0,0,0,0.12)';
+  p.style.zIndex=9999;
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),2200);
+}
+
+/* Animations */
+function runAnimation(name){
+  clearStage();
+  switch(name){
+    case 'floatHearts': spawnHearts(20, 0.9); break;
+    case 'typewriter': typeWriter(dayData.text); break;
+    case 'confetti': spawnConfetti(70); break;
+    case 'softZoom': softZoom(); break;
+    case 'ribbonSweep': ribbonSweep(); break;
+    case 'floatingHeartsSlow': spawnHearts(12, 1.6); break;
+    case 'kissSparkle': kissSparkle(); break;
+    case 'fullBloom': fullBloom(); break;
+    default: spawnHearts(14,1.0);
+  }
+}
+function clearStage(){
+  floatingHearts.innerHTML='';
+  centerMessage.textContent='';
+  gifRow.innerHTML='';
+  document.querySelectorAll('.confettiPiece').forEach(n=>n.remove());
+}
+
+/* Hearts */
+function spawnHearts(count, speed=1.0){
+  for(let i=0;i<count;i++){
+    const h = document.createElement('div');
+    h.className='heart';
+    const size = 18 + Math.random()*48;
+    h.style.width = size+'px';
+    h.style.height = size+'px';
+    h.style.left = (5 + Math.random()*90) + '%';
+    h.style.bottom = (-20 - Math.random()*40) + 'px';
+    h.style.background = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+    h.style.animation = `floatUp ${6*speed + Math.random()*3}s linear forwards`;
+    h.style.opacity = 0.95;
+    floatingHearts.appendChild(h);
+    setTimeout(()=>h.remove(), (9000*speed));
+  }
+}
+
+/* Typewriter + small GIFs */
+function typeWriter(text){
+  centerMessage.textContent='';
+  let i=0;
+  const speed = 45;
+  const tw = setInterval(()=> {
+    centerMessage.textContent += text.charAt(i);
+    i++;
+    if(i>=text.length) clearInterval(tw);
+  }, speed);
+  setTimeout(()=> showGifsMini(), 600);
+}
+
+/* Show small GIFs in right visual */
+function showGifsMini(){
+  gifRow.innerHTML='';
+  for(let i=0;i<3;i++){
+    const img = document.createElement('img');
+    img.className='gifItem';
+    img.src = catGifs[i % catGifs.length];
+    img.alt = 'cute gif';
+    gifRow.appendChild(img);
+  }
+}
+
+/* Confetti */
+function spawnConfetti(n=40){
+  const colors = ['#ff6fa3','#ffd166','#ff9aa2','#cdb4db','#bde0fe'];
+  for(let i=0;i<n;i++){
+    const c = document.createElement('div');
+    c.className='confettiPiece';
+    c.style.left = (5 + Math.random()*90) + '%';
+    c.style.top = (5 + Math.random()*70) + '%';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.zIndex = 50;
+    document.body.appendChild(c);
+    const endY = window.innerHeight + 100;
+    c.animate([{transform:'translateY(0px) rotate(0deg)', opacity:1},{transform:`translateY(${endY}px) rotate(${Math.random()*720}deg)`, opacity:0}], {duration:2000 + Math.random()*1600, easing:'cubic-bezier(.2,.8,.2,1)'});
+    setTimeout(()=>c.remove(), 3800);
+  }
+}
+
+/* Soft zoom */
+function softZoom(){
+  card.animate([{transform:'scale(0.98)'},{transform:'scale(1)'}], {duration:1200, easing:'ease-out', fill:'forwards'});
+  spawnHearts(18,1.2);
+}
+
+/* Ribbon sweep */
+function ribbonSweep(){
+  const r = document.createElement('div');
+  r.style.position='absolute';
+  r.style.left='-40%';
+  r.style.top='40%';
+  r.style.width='200%';
+  r.style.height='40%';
+  r.style.background = 'linear-gradient(90deg, rgba(255,111,163,0.12), rgba(255,200,220,0.06))';
+  r.style.transform='skewX(-20deg)';
+  r.style.zIndex=10;
+  r.style.borderRadius='40px';
+  card.appendChild(r);
+  r.animate([{left:'-40%'},{left:'100%'}], {duration:1400, easing:'cubic-bezier(.2,.8,.2,1)'});
+  setTimeout(()=>r.remove(),1600);
+  spawnHearts(12,1.4);
+}
+
+/* Kiss sparkle */
+function kissSparkle(){
+  spawnHearts(10,0.9);
+  spawnConfetti(40);
+  centerMessage.textContent = 'Muah!';
+  centerMessage.style.fontSize='28px';
+  showGifsMini();
+}
+
+/* Full bloom for Feb 14 */
+function fullBloom(){
+  const big = document.createElement('div');
+  big.style.position='absolute';
+  big.style.width='220px';
+  big.style.height='220px';
+  big.style.left='50%';
+  big.style.top='50%';
+  big.style.transform='translate(-50%,-50%) rotate(-45deg)';
+  big.style.background = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+  big.style.borderRadius='12px 12px 0 0';
+  big.style.zIndex=5;
+  big.style.opacity=0.95;
+  big.style.boxShadow='0 30px 80px rgba(255,45,111,0.18)';
+  big.style.transition='transform 700ms ease';
+  heartStage.appendChild(big);
+  setTimeout(()=>{ big.style.transform='translate(-50%,-50%) rotate(-45deg) scale(1.06)'; },50);
+  setTimeout(()=>{ big.style.transform='translate(-50%,-50%) rotate(-45deg) scale(1)'; },800);
+  setTimeout(()=>big.remove(),2600);
+  spawnConfetti(120);
+  centerMessage.textContent = `Happy Valentine's Day, ${gfName}!`;
+  centerMessage.style.fontSize='20px';
+  gifRow.innerHTML='';
+  for(let i=0;i<3;i++){
+    const img = document.createElement('img');
+    img.className='gifItem';
+    img.style.width='110px';
+    img.style.height='110px';
+    img.src = catGifs[i % catGifs.length];
+    gifRow.appendChild(img);
+  }
+}
+
+/* Bigger, more ornate flower on click */
+function spawnFlower(x,y){
+  const f = document.createElement('div');
+  f.className='flower';
+  const size = 48 + Math.random()*48;
+  f.style.width = size + 'px';
+  f.style.height = size + 'px';
+  f.style.left = (x - size/2) + 'px';
+  f.style.top = (y - size/2) + 'px';
+  f.style.zIndex = 999;
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#ff6fa3';
+  f.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="g1" cx="50%" cy="40%">
+        <stop offset="0%" stop-color="#fff7fb"/>
+        <stop offset="60%" stop-color="${accent}"/>
+      </radialGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <g transform="translate(24,24)">
+      <g filter="url(#glow)">
+        <g>
+          <path d="M0 -12 C6 -12 12 -8 12 -4 C12 0 6 6 0 6 C-6 6 -12 0 -12 -4 C-12 -8 -6 -12 0 -12 Z" fill="${accent}" transform="rotate(0) translate(0,-6)"/>
+          <path d="M0 -12 C6 -12 12 -8 12 -4 C12 0 6 6 0 6 C-6 6 -12 0 -12 -4 C-12 -8 -6 -12 0 -12 Z" fill="#ffd1e6" transform="rotate(45) translate(0,-6)"/>
+          <path d="M0 -12 C6 -12 12 -8 12 -4 C12 0 6 6 0 6 C-6 6 -12 0 -12 -4 C-12 -8 -6 -12 0 -12 Z" fill="#ffe6f0" transform="rotate(90) translate(0,-6)"/>
+          <circle r="4.2" fill="#fff7f9" />
+        </g>
+      </g>
+    </g>
+  </svg>`;
+  document.body.appendChild(f);
+  const dx = (Math.random()-0.5) * 220;
+  const dy = -100 - Math.random()*160;
+  f.animate([
+    {transform:'translate(0,0) scale(0.8)', opacity:1},
+    {transform:`translate(${dx}px,${dy}px) scale(1.12)`, opacity:0.95},
+    {transform:`translate(${dx*1.2}px,${dy*1.6}px) scale(0.9)`, opacity:0}
+  ], {duration:1200 + Math.random()*900, easing:'cubic-bezier(.2,.8,.2,1)'});
+  setTimeout(()=>f.remove(),2400);
+}
+
+/* Click anywhere to spawn flower */
+document.addEventListener('click', (e)=>{
+  if(e.target.closest('.noBtn') && !noBtn.classList.contains('hidden')) {
+    if(isFeb14()) { showPopup('That button is shy today 💘'); return; }
+  }
+  spawnFlower(e.clientX, e.clientY);
+});
+
+/* Periodic hearts */
+setInterval(()=>spawnHearts(2,1.8), 2400);
+
+/* Keyboard */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'y' || e.key === 'Y') yesBtn.click();
+  if(e.key === 'n' || e.key === 'N') {
+    if(isFeb14()) showPopup('Nope — not today 💘'); else showPopup('Try the Surprise button instead 💌');
+  }
+});
+
+/* Feb14 check */
+function isFeb14(){ const d=new Date(); return (d.getMonth()+1===2 && d.getDate()===14); }
+
+/* NO button evasive behavior */
+let noMoveEnabled = false;
+function enableMovingNo(){
+  noMoveEnabled = true;
+  const actions = document.querySelector('.actions');
+  const rect = actions.getBoundingClientRect();
+  noBtn.style.left = (rect.left + 120) + 'px';
+  noBtn.style.top = (rect.top + 8) + 'px';
+  noBtn.style.zIndex = 9999;
+  noBtn.addEventListener('click', (e)=> { e.preventDefault(); showPopup('No is not allowed today — only love! 💘'); });
+  document.addEventListener('mousemove', noAvoidHandler);
+  document.addEventListener('touchmove', noAvoidHandler, {passive:true});
+}
+function noAvoidHandler(e){
+  if(!noMoveEnabled) return;
+  const mx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+  const my = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+  const nb = noBtn.getBoundingClientRect();
+  const distX = Math.abs((nb.left + nb.width/2) - mx);
+  const distY = Math.abs((nb.top + nb.height/2) - my);
+  const dist = Math.sqrt(distX*distX + distY*distY);
+  if(dist < 140) jumpNoButton(mx,my);
+}
+function jumpNoButton(mx,my){
+  const padding = 24;
+  const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  let nx, ny;
+  for(let i=0;i<12;i++){
+    nx = padding + Math.random()*(vw - padding*2);
+    ny = padding + Math.random()*(vh - padding*2);
+    const dx = nx - mx, dy = ny - my;
+    if(Math.sqrt(dx*dx + dy*dy) > 180) break;
+  }
+  noBtn.style.left = (nx) + 'px';
+  noBtn.style.top = (ny) + 'px';
+  noBtn.animate([{transform:'translateY(0)'},{transform:'translateY(-8px)'},{transform:'translateY(0)'}], {duration:420, easing:'ease-out'});
+}
+
+/* Surprise modal using GIFs */
+function openSurpriseModal(){
+  modalRoot.innerHTML = '';
+  const backdrop = document.createElement('div');
+  backdrop.className = 'modalBackdrop';
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <button class="closeBtn" aria-label="close">✕</button>
+    <div class="ribbon" aria-hidden="true"></div>
+    <div class="modalContent">
+      <div class="modalLeft">
+        <h3 class="cuteTitle">A little surprise for ${gfName}</h3>
+        <p style="margin:6px 0 12px 0;color:#6b3a4a">
+          Open your heart and enjoy these tiny treasures — animated GIFs, ribbons, and confetti made just for you.
+        </p>
+        <div class="decor" id="modalDecor"></div>
+      </div>
+      <div class="modalRight">
+        <div style="width:160px;height:160px;border-radius:12px;background:linear-gradient(135deg,#fff,#fff8fb);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,0.06)">
+          <img id="modalGif" src="${catGifs[0]}" alt="cat gif" style="width:120px;height:120px;object-fit:contain;border-radius:8px"/>
+        </div>
+        <button class="btn" id="modalGiftBtn">More Cute</button>
+      </div>
+    </div>
+  `;
+  backdrop.appendChild(modal);
+  modalRoot.appendChild(backdrop);
+  modalRoot.style.display = 'block';
+
+  modal.querySelector('.closeBtn').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', (ev)=> { if(ev.target === backdrop) closeModal(); });
+
+  const decor = modal.querySelector('#modalDecor');
+  for(let i=0;i<6;i++){
+    const el = document.createElement('div');
+    el.style.width = '56px';
+    el.style.height = '56px';
+    el.style.borderRadius = '10px';
+    el.style.background = i%2===0 ? 'linear-gradient(135deg,#fff0f6,#fff8fb)' : 'linear-gradient(135deg,#fff7f9,#fff0f6)';
+    el.style.display = 'flex';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.boxShadow = '0 8px 20px rgba(0,0,0,0.04)';
+    const img = document.createElement('img');
+    img.src = catGifs[i % catGifs.length];
+    img.alt = 'gif';
+    img.style.width = '44px';
+    img.style.height = '44px';
+    img.style.objectFit = 'cover';
+    el.appendChild(img);
+    decor.appendChild(el);
+  }
+
+  const modalGif = modal.querySelector('#modalGif');
+  const modalGiftBtn = modal.querySelector('#modalGiftBtn');
+  let idx = 0;
+  modalGiftBtn.addEventListener('click', ()=>{
+    idx = (idx + 1) % catGifs.length;
+    modalGif.src = catGifs[idx];
+    spawnConfetti(40);
+    spawnHearts(12,0.9);
+    const r = document.createElement('div');
+    r.style.position='absolute';
+    r.style.left='-20%';
+    r.style.top='-10%';
+    r.style.width='140%';
+    r.style.height='30%';
+    r.style.background = 'linear-gradient(90deg, rgba(255,111,163,0.12), rgba(255,200,220,0.06))';
+    r.style.transform='skewX(-20deg)';
+    r.style.zIndex=1;
+    r.style.borderRadius='40px';
+    modal.appendChild(r);
+    r.animate([{left:'-20%'},{left:'120%'}], {duration:900, easing:'cubic-bezier(.2,.8,.2,1)'});
+    setTimeout(()=>r.remove(),1000);
+  });
+}
+function closeModal(){ modalRoot.innerHTML = ''; modalRoot.style.display = 'none'; }
+
+/* Console hint if GIFs are placeholders */
+if(catGifs.some(u=>u.includes('GIF_URL_'))){
+  console.info('Replace the GIF_URL_ placeholders in the catGifs array with real GIF URLs to show animated cat couples.');
+}
+</script>
+</body>
+</html>
