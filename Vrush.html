@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Week, Vrushti! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1493;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .wish-text {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .name {
+            color: #ff69b4;
+            font-size: 32px;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .flower-container {
+            margin: 30px 0;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flower {
+            font-size: 80px;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .flower:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .note-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff1493 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .note-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .note-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-width: 500px;
+            animation: popIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .note-popup.show {
+            display: block;
+        }
+
+        .note-popup h2 {
+            color: #ff1493;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .note-popup p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .falling-petals {
+            position: fixed;
+            pointer-events: none;
+            font-size: 30px;
+            z-index: 10;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart-emoji {
+            display: inline-block;
+            margin: 0 5px;
+            animation: heartbeat 0.6s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .countdown {
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .flower-click-area {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="day-label" id="dayLabel"></div>
+        <h1 class="wish-text">Happy <span id="dayName"></span></h1>
+        <p class="name">Dear <span class="heart-emoji">💕</span> Vrushti <span class="heart-emoji">💕</span></p>
+        
+        <div class="flower-container">
+            <div class="flower-click-area" id="flower" onclick="createFlowers(event)">
+                <span class="flower" id="flowerEmoji">🌹</span>
+            </div>
+        </div>
+
+        <p class="message" id="message"></p>
+
+        <div>
+            <button class="note-button" onclick="openNote()">💌 Read My Note</button>
+            <button class="note-button" onclick="createConfetti()">✨ Surprise Me</button>
+        </div>
+
+        <p class="countdown" id="countdown"></p>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeNote()"></div>
+    <div class="note-popup" id="notePopup">
+        <h2>A Note For You, Vrushti 💕</h2>
+        <p id="noteText"></p>
+        <button class="close-btn" onclick="closeNote()">Close</button>
+    </div>
+
+    <script>
+        const valentineWeek = {
+            0: {
+                name: "Rose Day",
+                flower: "🌹",
+                wish: "Your love is as beautiful as a red rose!",
+                message: "Vrushti, every moment with you feels like a beautiful garden blooming with love and joy. You make every day special! 🌹💕",
+                note: "Today marks the beginning of Valentine's week, and I want you to know that you are my beautiful rose. Your presence brings color and fragrance to my life. Thank you for being so amazing!"
+            },
+            1: {
+                name: "Propose Day",
+                flower: "💐",
+                wish: "I propose to love you forever!",
+                message: "Vrushti, with every beat of my heart, I choose you, today and always. Let's create endless beautiful memories together! 💐💕",
+                note: "I want to propose my endless love for you. You are not just my love, but my best friend, my inspiration, and my reason to smile every single day. Will you let me love you forever?"
+            },
+            2: {
+                name: "Chocolate Day",
+                flower: "🍫",
+                wish: "You're sweeter than any chocolate!",
+                message: "Vrushti, just like chocolate melts on the tongue, your love melts my heart completely. You're the sweetest thing in my life! 🍫💕",
+                note: "Chocolate is sweet, but nothing compares to your sweetness. Your kindness, your smile, and your love are the best flavors in my life. You make every moment delicious!"
+            },
+            3: {
+                name: "Teddy Day",
+                flower: "🧸",
+                wish: "You're my cuddly comfort!",
+                message: "Vrushti, you're my favorite teddy bear - warm, comforting, and always there when I need you. I love you so much! 🧸💕",
+                note: "Like a teddy bear that provides comfort, you are my solace in every moment. Your hugs (even virtual ones) make everything better. Thank you for being my safe place."
+            },
+            4: {
+                name: "Promise Day",
+                flower: "🤝",
+                wish: "I promise to love you unconditionally!",
+                message: "Vrushti, I promise you forever - a love that's honest, true, and endless. You're my forever promise! 🤝💕",
+                note: "I promise to stand by you through thick and thin, to celebrate your wins as if they're mine, and to support you always. You have my heart, my trust, and my eternal promise!"
+            },
+            5: {
+                name: "Kiss Day",
+                flower: "💋",
+                wish: "You steal my breath away!",
+                message: "Vrushti, every moment with you feels like a kiss from the universe. You make my heart race in the most beautiful way! 💋💕",
+                note: "No words can fully express how your presence makes me feel. Every glance, every smile, every moment together is like a thousand kisses to my soul. You are absolutely everything to me!"
+            },
+            6: {
+                name: "Hug Day",
+                flower: "🤗",
+                wish: "I want to hug you forever!",
+                message: "Vrushti, in your arms is where I feel at home. Let's stay in an eternal hug of love and warmth! 🤗💕",
+                note: "A hug from you can fix anything. Your warmth, your embrace, your presence - they all make me feel like I'm exactly where I belong. Thank you for being my comfort and my home."
+            },
+            7: {
+                name: "Valentine's Day",
+                flower: "💝",
+                wish: "Happy Valentine's Day, My Love!",
+                message: "Vrushti, today and every day, I celebrate your love, your beauty, and your incredible soul. You are my greatest love story! 💝💕",
+                note: "Happy Valentine's Day to the most beautiful person inside and out! You are my past, my present, and my future. I love you more with each passing second. Forever yours! 💕"
+            }
+        };
+
+        function getToday() {
+            const today = new Date();
+            const feb8 = new Date(2026, 1, 8); // February 8, 2026
+            const diffTime = today - feb8;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0 || diffDays > 7) {
+                return 7; // Default to Valentine's Day
+            }
+            return diffDays;
+        }
+
+        function updateContent() {
+            const dayIndex = getToday();
+            const data = valentineWeek[dayIndex];
+
+            document.getElementById('dayLabel').textContent = data.name;
+            document.getElementById('dayName').textContent = data.name;
+            document.getElementById('message').textContent = data.message;
+            document.getElementById('noteText').textContent = data.note;
+            document.getElementById('flowerEmoji').textContent = data.flower;
+
+            updateCountdown();
+        }
+
+        function updateCountdown() {
+            const today = new Date();
+            const valentine = new Date(2026, 1, 14); // February 14, 2026
+            const diffTime = valentine - today;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            if (diffDays > 0) {
+                document.getElementById('countdown').textContent = 
+                    `💕 ${diffDays} days and ${diffHours} hours until Valentine's Day! 💕`;
+            } else if (diffDays === 0) {
+                document.getElementById('countdown').textContent = 
+                    `🎉 Happy Valentine's Day! Love You! 💕`;
+            }
+        }
+
+        function openNote() {
+            document.getElementById('notePopup').classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+            createConfetti();
+        }
+
+        function closeNote() {
+            document.getElementById('notePopup').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        function createFlowers(event) {
+            const flowers = ['🌹', '🌺', '🌸', '🌼', '🌻', '💐', '🏵️'];
+            
+            for (let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'falling-petals';
+                petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                petal.style.left = event.pageX + (Math.random() - 0.5) * 100 + 'px';
+                petal.style.top = event.pageY + 'px';
+                document.body.appendChild(petal);
+
+                setTimeout(() => petal.remove(), 3000);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['💕', '💖', '💗', '✨', '⭐', '🌟'];
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'falling-petals';
+                confetti.textContent = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-30px';
+                confetti.style.animationDuration = (2 + Math.random() * 1) + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Update content on page load
+        updateContent();
+
+        // Update content every hour to catch day changes
+        setInterval(updateContent, 3600000);
+
+        // Close popup when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeNote();
+        });
+    </script>
+</body>
+</html>
